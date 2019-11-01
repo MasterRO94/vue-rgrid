@@ -11,6 +11,9 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "repository": {
+    "url": "https://github.com/MasterRO94/vue-rgrid"
+  },
   "main": "dist/js/app.js",
   "browser": {
     "./sfc": "src/components/VGrid.vue"
