@@ -1,0 +1,26 @@
+export default {
+  pagination: {
+    enabled: true,
+    perPage: 10,
+    pageRange: 3,
+    prevText: 'Previous',
+    nextText: 'Next',
+    breakViewText: '...',
+    firstLastButton: true,
+    firstButtonText: '<<',
+    lastButtonText: '>>',
+    hidePrevNext: false,
+    infoEnabled: true,
+    infoPosition: 'top',
+    infoTemplate: 'Displaying #rows of #total entries',
+  },
+  sorting: true,
+  filtering: true,
+  selection: true,
+  idField: null,
+  axios: {},
+  responsive: {
+    enabled: true,
+    breakpoint: 1024,
+  },
+};

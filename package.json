@@ -1,0 +1,46 @@
+{
+  "name": "vue-rgrid",
+  "version": "0.1.1",
+  "author": {
+    "name": "Ihoshyn Roman",
+    "email": "igoshin18@gmail.com"
+  },
+  "private": false,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "main": "dist/js/app.js",
+  "browser": {
+    "./sfc": "src/components/VGrid.vue"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "core-js": "^3.3.2",
+    "object-hash": "^2.0.0",
+    "vue": "^2.6.10",
+    "vue-resize-directive": "^1.2.0",
+    "vuejs-paginate": "^2.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-eslint": "^4.0.0",
+    "@vue/cli-service": "^4.0.0",
+    "babel": "^6.23.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^5.2.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-loader": "^2.2.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.15.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
