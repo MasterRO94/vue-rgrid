@@ -1,3 +1,5 @@
+import Utils from './Utils';
+
 export default class Api {
   constructor(grid) {
     this.grid = grid;
@@ -50,9 +52,9 @@ export default class Api {
     this.grid.init(true);
   }
 
-  displayDetails(cell, row) {
-    const rowId = Api.parseRowId(row);
-    const field = Api.parseCellField(cell);
+  displayDetails(cellOrField, row) {
+    const rowId = Utils.parseRowId(row);
+    const field = Utils.parseCellField(cellOrField);
 
     if (!this.isDetailsExpanded(field, rowId)) {
       if (!this.grid.displayedDetails[rowId]) {
@@ -63,9 +65,9 @@ export default class Api {
     }
   }
 
-  hideDetails(cell, row) {
-    const rowId = Api.parseRowId(row);
-    const field = Api.parseCellField(cell);
+  hideDetails(cellOrField, row) {
+    const rowId = Utils.parseRowId(row);
+    const field = Utils.parseCellField(cellOrField);
 
     if (this.isDetailsExpanded(field, rowId)) {
       this.grid.$set(
@@ -76,9 +78,9 @@ export default class Api {
     }
   }
 
-  toggleDetails(cell, row) {
-    const rowId = Api.parseRowId(row);
-    const field = Api.parseCellField(cell);
+  toggleDetails(cellOrField, row) {
+    const rowId = Utils.parseRowId(row);
+    const field = Utils.parseCellField(cellOrField);
 
     if (!this.isDetailsExpanded(field, rowId)) {
       this.displayDetails(field, rowId);
@@ -87,18 +89,10 @@ export default class Api {
     }
   }
 
-  isDetailsExpanded(cell, row) {
-    const rowId = Api.parseRowId(row);
-    const field = Api.parseCellField(cell);
+  isDetailsExpanded(cellOrField, row) {
+    const rowId = Utils.parseRowId(row);
+    const field = Utils.parseCellField(cellOrField);
 
     return this.grid.displayedDetails[rowId] && this.grid.displayedDetails[rowId].includes(field);
-  }
-
-  static parseRowId(row) {
-    return row && typeof row === 'object' ? row.id : row;
-  }
-
-  static parseCellField(cell) {
-    return cell && typeof cell === 'object' ? cell.field : cell;
   }
 }
