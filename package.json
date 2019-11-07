@@ -1,6 +1,6 @@
 {
   "name": "vue-rgrid",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": {
     "name": "Ihoshyn Roman",
     "email": "igoshin18@gmail.com"
@@ -14,8 +14,8 @@
   "repository": {
     "url": "https://github.com/MasterRO94/vue-rgrid"
   },
-  "main": "dist/js/rgrid.common.js",
-  "module": "dist/js/rgrid.common.js",
+  "main": "dist/rgrid.common.js",
+  "module": "dist/rgrid.common.js",
   "files": [
     "src/*.js",
     "src/*.vue",
