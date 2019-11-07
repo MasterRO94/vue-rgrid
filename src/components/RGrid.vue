@@ -30,11 +30,11 @@
           v-if="fetchingData"
           name="grid-loader"
         >
-          <v-loader />
+          Loading...
         </slot>
 
         <table
-          v-if="!mobileView"
+          v-if="!cardsView"
           v-bind="$attrs"
           class="r-grid__table"
         >
@@ -467,7 +467,7 @@ export default {
       return this.config.selection ? count + 1 : count;
     },
 
-    mobileView() {
+    cardsView() {
       return this.config.responsive.enabled && this.windowWidth <= this.config.responsive.breakpoint;
     },
   },
@@ -590,7 +590,9 @@ export default {
           idField: this.config.idField,
         }));
 
-        this.pagination = { ...this.pagination, ...response.data.pagination };
+        if (this.config.pagination.enabled) {
+          this.pagination = { ...this.pagination, ...response.data.pagination };
+        }
       } catch (e) {
         // eslint-disable-next-line
         console.log(e);
