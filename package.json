@@ -15,6 +15,13 @@
     "url": "https://github.com/MasterRO94/vue-rgrid"
   },
   "main": "dist/js/rgrid.common.js",
+  "module": "dist/js/rgrid.common.js",
+  "files": [
+    "src/*.js",
+    "src/*.vue",
+    "dist/*.js",
+    "dist/*.js.map"
+  ],
   "dependencies": {
     "axios": "^0.19.0",
     "core-js": "^3.3.2",
