@@ -453,8 +453,9 @@ export default {
       }
 
       return this.config.pagination.infoTemplate
-        .replace(/#rows/g, this.data.rows.length)
-        .replace(/#total/g, this.pagination.total);
+        .replace(/:from/g, this.data.rows.length * (this.pagination.currentPage - 1) + 1)
+        .replace(/:to/g, this.data.rows.length * this.pagination.currentPage)
+        .replace(/:total/g, this.pagination.total);
     },
 
     totalColumnsCount() {

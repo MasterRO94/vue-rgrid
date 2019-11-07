@@ -12,7 +12,7 @@ export default {
     hidePrevNext: false,
     infoEnabled: true,
     infoPosition: 'top',
-    infoTemplate: 'Displaying #rows of #total entries',
+    infoTemplate: 'Displaying :from..:to of :total entries',
   },
   noDataText: 'No data to display',
   sorting: {
