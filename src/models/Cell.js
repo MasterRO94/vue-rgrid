@@ -26,4 +26,8 @@ export default class Cell {
 
     return this;
   }
+
+  toString() {
+    return this.value;
+  }
 }

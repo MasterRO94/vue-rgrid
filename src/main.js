@@ -1,9 +1,3 @@
-import VGrid from './components/VGrid.vue';
+import RGrid from './components/RGrid.vue';
 
-export default function Grid(vm, options = {}) {
-  vm.prototype.$grids = {
-    options,
-  };
-
-  vm.component('v-grid', VGrid);
-}
+export default RGrid;

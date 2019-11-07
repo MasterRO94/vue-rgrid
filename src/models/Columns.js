@@ -1,4 +1,5 @@
 import Column from './Column';
+import Utils from '../Utils';
 
 export default class Columns {
   constructor(columns = {}) {
@@ -14,7 +15,7 @@ export default class Columns {
 
     Object.keys(row.columns).forEach((field) => {
       columns[field] = Column.make(field, {
-        label: (field.charAt(0).toUpperCase() + field.substring(1)).replace(/_/g, ' '),
+        label: Utils.upperFirstLetter(field),
       });
     });
 

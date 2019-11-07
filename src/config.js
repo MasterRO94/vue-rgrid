@@ -14,13 +14,18 @@ export default {
     infoPosition: 'top',
     infoTemplate: 'Displaying #rows of #total entries',
   },
-  sorting: true,
+  noDataText: 'No data to display',
+  sorting: {
+    enabled: true,
+    multipleColumnsSorting: true,
+    defaultSortingColumns: {},
+  },
   filtering: true,
   selection: true,
   idField: null,
   axios: {},
   responsive: {
     enabled: true,
-    breakpoint: 1024,
+    breakpoint: 1023,
   },
 };
