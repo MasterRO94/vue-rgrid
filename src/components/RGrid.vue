@@ -452,10 +452,13 @@ export default {
         return '';
       }
 
+      const from = (this.pagination.currentPage - 1) * this.pagination.perPage + 1;
+      const to = from + this.data.rows.length;
+
       return this.config.pagination.infoTemplate
         .replace(/:total/g, this.pagination.total)
-        .replace(/:from/g, this.data.rows.length * (this.pagination.currentPage - 1) + 1)
-        .replace(/:to/g, this.data.rows.length * this.pagination.currentPage);
+        .replace(/:from/g, String(from))
+        .replace(/:to/g, String(to));
     },
 
     totalColumnsCount() {
