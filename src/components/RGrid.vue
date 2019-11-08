@@ -449,13 +449,13 @@ export default {
 
     paginationInfo() {
       if (!this.config.pagination.infoEnabled) {
-        return this.config.pagination.infoTemplate
-          .replace(/:total/g, this.pagination.total)
-          .replace(/:from/g, this.data.rows.length * (this.pagination.currentPage - 1) + 1)
-          .replace(/:to/g, this.data.rows.length * this.pagination.currentPage);
+        return '';
       }
 
-      return '';
+      return this.config.pagination.infoTemplate
+        .replace(/:total/g, this.pagination.total)
+        .replace(/:from/g, this.data.rows.length * (this.pagination.currentPage - 1) + 1)
+        .replace(/:to/g, this.data.rows.length * this.pagination.currentPage);
     },
 
     totalColumnsCount() {
