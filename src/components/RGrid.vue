@@ -448,11 +448,7 @@ export default {
     },
 
     paginationInfo() {
-      if (!this.config.pagination.infoEnabled) {
-        return '';
-      }
-
-      const from = (this.pagination.currentPage - 1) * this.pagination.perPage + 1;
+      const from = (this.pagination.currentPage - 1) * this.itemsPerPage + 1;
       const to = from + this.data.rows.length - 1;
 
       return this.config.pagination.infoTemplate
@@ -473,6 +469,10 @@ export default {
 
     cardsView() {
       return this.config.responsive.enabled && this.windowWidth <= this.config.responsive.breakpoint;
+    },
+
+    itemsPerPage() {
+      return this.pagination.perPage || this.config.pagination.perPage;
     },
   },
 
@@ -729,7 +729,7 @@ export default {
     prepareRequestParams() {
       return RequestQueryFormatter.format({
         page: this.pagination.currentPage || 1,
-        perPage: this.pagination.perPage || this.config.pagination.perPage,
+        perPage: this.itemsPerPage,
         sorting: this.sorting,
         ...this.additionalRequestParams,
       });
