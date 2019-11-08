@@ -453,7 +453,7 @@ export default {
       }
 
       const from = (this.pagination.currentPage - 1) * this.pagination.perPage + 1;
-      const to = from + this.data.rows.length;
+      const to = from + this.data.rows.length - 1;
 
       return this.config.pagination.infoTemplate
         .replace(/:total/g, this.pagination.total)
