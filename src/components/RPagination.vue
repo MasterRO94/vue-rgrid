@@ -59,7 +59,6 @@ export default {
 
   methods: {
     pageChanged(page) {
-      this.currentPage = page;
       this.$emit('input', page);
     },
   },
