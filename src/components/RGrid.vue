@@ -60,7 +60,6 @@
               <th
                 v-for="(column, field) in data.columns.columns"
                 :key="field"
-                class="r-grid__table-head-cell"
                 :class="[
                   config.styling.tableHeadCellClass,
                   {'grid--column-sortable': column.sortable}
@@ -134,7 +133,6 @@
             >
               <tr
                 :key="row.id"
-                class="r-grid__table-row"
                 :class="[
                   config.styling.tableRowClass,
                   {
@@ -192,7 +190,7 @@
                   v-if="$scopedSlots[`row-details:${field}`] && displayedDetails[row.id]"
                   v-show="displayedDetails[row.id] && displayedDetails[row.id].includes(field)"
                   :key="`${row.id}-${field}`"
-                  class="r-grid__table-row"
+                  :class="config.styling.tableRowClass"
                 >
                   <td
                     :colspan="totalColumnsCount"
@@ -348,7 +346,7 @@
 
       <div
         v-if="config.pagination.infoEnabled && config.pagination.infoPosition === 'bottom'"
-        class="r-grid__pagination-info r-grid__pagination-info--bottom"
+        :class="config.styling.pagination.infoClassBottom"
       >
         <slot name="pagination-info">
           {{ paginationInfo }}
