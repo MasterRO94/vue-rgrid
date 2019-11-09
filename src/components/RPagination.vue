@@ -51,14 +51,15 @@ export default {
     },
   },
 
-  computed: {
-    currentPage() {
-      return this.value;
-    },
+  data() {
+    return {
+      currentPage: this.value,
+    };
   },
 
   methods: {
     pageChanged(page) {
+      this.currentPage = page;
       this.$emit('input', page);
     },
   },
