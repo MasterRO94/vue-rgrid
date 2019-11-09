@@ -1,7 +1,7 @@
 <template>
   <div
     v-resize:debounce="handleResize"
-    class="r-grid"
+    :class="config.styling.containerClass"
   >
     <slot name="grid-header" />
 
@@ -13,19 +13,21 @@
     </slot>
     <div
       v-else
-      class="r-grid__content"
-      :class="{'grid--wrapper--content--loading': fetchingData}"
+      :class="[
+        config.styling.contentClass,
+        {[config.styling.contentLoadingClass]: fetchingData}
+      ]"
     >
       <div
         v-if="config.pagination.infoEnabled && config.pagination.infoPosition === 'top'"
-        class="r-grid__pagination-info r-grid__pagination-info--top"
+        :class="config.styling.pagination.infoClassTop"
       >
         <slot name="paginationInfo">
           {{ paginationInfo }}
         </slot>
       </div>
 
-      <div class="r-grid__table-wrapper">
+      <div :class="config.styling.tableWrapperClass">
         <slot
           v-if="fetchingData"
           name="grid-loader"
@@ -36,14 +38,14 @@
         <table
           v-if="!cardsView"
           v-bind="$attrs"
-          class="r-grid__table"
+          :class="config.styling.tableClass"
         >
-          <thead class="r-grid__table-head">
-            <tr class="r-grid__table-row">
+          <thead :class="config.styling.tableHeadClass">
+            <tr :class="config.styling.tableRowClass">
               <th
                 v-if="config.selection"
                 v-show="data.rows.length"
-                class="r-grid__table-head-cell"
+                :class="config.styling.tableHeadCellClass"
               >
                 <div class="r-grid__checkbox">
                   <input
@@ -59,9 +61,12 @@
                 v-for="(column, field) in data.columns.columns"
                 :key="field"
                 class="r-grid__table-head-cell"
-                :class="{'grid--column-sortable': column.sortable}"
+                :class="[
+                  config.styling.tableHeadCellClass,
+                  {'grid--column-sortable': column.sortable}
+                ]"
               >
-                <div class="r-grid__table-head-holder">
+                <div :class="config.styling.tableHeadHolderClass">
                   <slot
                     :column="column"
                     :name="`column:${field}`"
@@ -122,7 +127,7 @@
               </th>
             </tr>
           </thead>
-          <tbody class="r-grid__table-body">
+          <tbody :class="config.styling.tableBodyClass">
             <!-- eslint-disable vue/require-v-for-key -->
             <template
               v-for="row in data.rows"
@@ -130,15 +135,18 @@
               <tr
                 :key="row.id"
                 class="r-grid__table-row"
-                :class="{
-                  'r-grid__table-row-expanded': displayedDetails[row.id] && displayedDetails[row.id].length
-                }"
+                :class="[
+                  config.styling.tableRowClass,
+                  {
+                    [config.styling.tableRowExpandedClass]: displayedDetails[row.id] && displayedDetails[row.id].length,
+                    [config.styling.tableRowSelectedClass]: selectionHasRow(row)
+                  }]"
                 @click="fireRowClickEvent(row)"
                 @dblclick="fireRowDblClickEvent(row)"
               >
                 <td
                   v-if="config.selection"
-                  class="r-grid__table-body-cell"
+                  :class="config.styling.tableBodyCellClass"
                 >
                   <div class="r-grid__checkbox">
                     <input
@@ -153,11 +161,13 @@
                 <td
                   v-for="(column, field) in data.columns.columns"
                   :key="field"
-                  class="r-grid__table-body-cell"
-                  :class="{
-                    'r-grid__table-body-cell-expanded': displayedDetails[row.id]
-                      && displayedDetails[row.id].includes(field)
-                  }"
+                  :class="[
+                    config.styling.tableBodyCellClass,
+                    {
+                      [config.styling.tableBodyCellExpandedClass]: displayedDetails[row.id]
+                        && displayedDetails[row.id].includes(field)
+                    }
+                  ]"
                   @click="fireCellClickEvent(row.columns[field] || null, row, field)"
                   @dblclick="fireCellDblClickEvent(row.columns[field] || null, row, field)"
                 >
@@ -186,8 +196,7 @@
                 >
                   <td
                     :colspan="totalColumnsCount"
-                    class="r-grid__table-body-cell"
-                    style="background: #f3f2e5"
+                    :class="config.styling.tableBodyCellClass"
                   >
                     <slot
                       :name="`row-details:${field}`"
@@ -204,11 +213,11 @@
 
         <div
           v-else
-          class="r-grid__cards-wrapper"
+          :class="config.styling.cardWrapperClass"
         >
           <div
             v-if="config.selection"
-            class="r-grid__cards-controls"
+            :class="config.styling.cardControlsClass"
           >
             <label :for="`select-all-rows-${_uid}`">
               Select All
@@ -229,13 +238,16 @@
           <template
             v-for="row in data.rows"
           >
-            <div class="r-grid__card-col">
+            <div :class="config.styling.cardColumnClass">
               <div
                 :key="row.id"
-                class="r-grid__card"
-                :class="{
-                  'r-grid__card-expanded': displayedDetails[row.id] && displayedDetails[row.id].length
-                }"
+                :class="[
+                  config.styling.cardClass,
+                  {
+                    [config.styling.cardExpandedClass]: displayedDetails[row.id] && displayedDetails[row.id].length,
+                    [config.styling.cardSelectedClass]: selectionHasRow(row)
+                  }
+                ]"
                 @click="fireRowClickEvent(row)"
                 @dblclick="fireRowDblClickEvent(row)"
               >
@@ -245,7 +257,7 @@
                 >
                   <div
                     v-if="config.selection"
-                    class="r-grid__card-controls"
+                    :class="config.styling.cardControlsClass"
                   >
                     <div class="r-grid__checkbox">
                       <input
@@ -262,9 +274,9 @@
                 <div
                   v-for="(column, field) in data.cardColumns.columns"
                   :key="field"
-                  class="r-grid__card-row"
+                  :class="config.styling.cardRowClass"
                 >
-                  <div class="r-grid__card-label">
+                  <div :class="config.styling.cardLabelClass">
                     <slot
                       :column="column"
                       :name="`card-column:${field}`"
@@ -280,11 +292,13 @@
                     </slot>
                   </div>
                   <div
-                    class="r-grid__card-value"
-                    :class="{
-                      'r-grid__card-value-expanded': displayedDetails[row.id]
-                        && displayedDetails[row.id].includes(field)
-                    }"
+                    :class="[
+                      config.styling.cardValueClass,
+                      {
+                        [config.styling.cardValueExpandedClass]: displayedDetails[row.id]
+                          && displayedDetails[row.id].includes(field)
+                      }
+                    ]"
                     @click="fireCellClickEvent(row.columns[field] || null, row, field)"
                     @dblclick="fireCellDblClickEvent(row.columns[field] || null, row, field)"
                   >
@@ -518,7 +532,7 @@ export default {
     },
 
     prepareConfiguration() {
-      const userConfig = this.options && Object.keys(this.options).length
+      const customConfig = this.options && Object.keys(this.options).length
         ? {
           ...this.options,
           pagination: {
@@ -533,10 +547,18 @@ export default {
             ...config.sorting,
             ...this.options.sorting || {},
           },
+          styling: {
+            ...config.styling,
+            ...this.options.styling || {},
+            pagination: {
+              ...config.styling.pagination,
+              ...(this.options.styling ? this.options.styling.pagination || {} : {}),
+            },
+          },
         }
         : {};
 
-      this.config = { ...config, ...userConfig };
+      this.config = { ...config, ...customConfig };
 
       if (this.config.sorting.defaultSortingColumns && Object.keys(this.config.sorting.defaultSortingColumns).length) {
         Object.entries(this.config.sorting.defaultSortingColumns).forEach((data) => {

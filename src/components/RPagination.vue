@@ -51,10 +51,10 @@ export default {
     },
   },
 
-  data() {
-    return {
-      currentPage: this.value,
-    };
+  computed: {
+    currentPage() {
+      return this.value;
+    },
   },
 
   methods: {
