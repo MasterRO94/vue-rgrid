@@ -28,6 +28,7 @@ export default {
     enabled: true,
     breakpoint: 1023,
   },
+  additionalRowClassHandler: () => '',
   styling: {
     containerClass: 'r-grid',
     contentClass: 'r-grid__content',

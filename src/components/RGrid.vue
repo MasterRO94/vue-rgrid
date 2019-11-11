@@ -138,7 +138,9 @@
                   {
                     [config.styling.tableRowExpandedClass]: displayedDetails[row.id] && displayedDetails[row.id].length,
                     [config.styling.tableRowSelectedClass]: selectionHasRow(row)
-                  }]"
+                  },
+                  additionalRowClass(row),
+                ]"
                 @click="fireRowClickEvent(row)"
                 @dblclick="fireRowDblClickEvent(row)"
               >
@@ -244,7 +246,8 @@
                   {
                     [config.styling.cardExpandedClass]: displayedDetails[row.id] && displayedDetails[row.id].length,
                     [config.styling.cardSelectedClass]: selectionHasRow(row)
-                  }
+                  },
+                  additionalRowClass(row),
                 ]"
                 @click="fireRowClickEvent(row)"
                 @dblclick="fireRowDblClickEvent(row)"
@@ -753,6 +756,14 @@ export default {
         sorting: this.sorting,
         ...this.additionalRequestParams,
       });
+    },
+
+    additionalRowClass(row) {
+      if (this.config.additionalRowClassHandler instanceof Function) {
+        return this.config.additionalRowClassHandler(row);
+      }
+
+      return '';
     },
 
     redraw() {
