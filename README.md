@@ -2,19 +2,15 @@
 
 ### Installation
 
-```javascript
-import Vue from 'vue';
-import Grid from 'vue-data-grids';
-
-
-Vue.use(Grid);
+```bash
+npm install --save vue-rgrid
 ```
 
 ### Usage
 
 #### Basic
 ```vue
-  <v-grid
+  <r-grid
     ref="myGrid"
     :data-url="url"
     :options="options"
@@ -24,7 +20,7 @@ Vue.use(Grid);
 #### Advanced
 ```vue
 <template>
-  <v-grid
+  <r-grid
     ref="myGrid"
     :data-url="url"
     :options="options"
@@ -109,12 +105,18 @@ Vue.use(Grid);
     <template v-slot:row-details="{ row }">
       <h5>DETAILS</h5>
     </template>
-  </v-grid>
+  </r-grid>
 </template>
 
 <script>
+import RGrid from 'vue-rgrid';
+
 export default {
   name: 'VGridsExample',
+
+  components: {
+    RGrid,
+  },
 
   data() {
     const customColumns = {
