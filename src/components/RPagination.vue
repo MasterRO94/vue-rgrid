@@ -10,15 +10,15 @@
     :first-button-text="config.firstButtonText"
     :last-button-text="config.lastButtonText"
     :hide-prev-next="config.hidePrevNext"
-    :container-class="config.styling.pagination.containerClass"
-    :page-class="config.styling.pagination.pageClass"
-    :page-link-class="config.styling.pagination.pageLinkClass"
-    :prev-class="config.styling.pagination.prevClass"
-    :prev-link-class="config.styling.pagination.prevLinkClass"
-    :next-class="config.styling.pagination.nextClass"
-    :next-link-class="config.styling.pagination.nextLinkClass"
-    :break-view-class="config.styling.pagination.breakViewClass"
-    :break-view-link-class="config.styling.pagination.breakViewLinkClass"
+    :container-class="styling.pagination.containerClass"
+    :page-class="styling.pagination.pageClass"
+    :page-link-class="styling.pagination.pageLinkClass"
+    :prev-class="styling.pagination.prevClass"
+    :prev-link-class="styling.pagination.prevLinkClass"
+    :next-class="styling.pagination.nextClass"
+    :next-link-class="styling.pagination.nextLinkClass"
+    :break-view-class="styling.pagination.breakViewClass"
+    :break-view-link-class="styling.pagination.breakViewLinkClass"
     :click-handler="pageChanged"
   />
 </template>
@@ -27,7 +27,7 @@
 import Paginate from 'vuejs-paginate';
 
 export default {
-  name: 'VPagination',
+  name: 'RPagination',
 
   components: {
     Paginate,
@@ -35,6 +35,11 @@ export default {
 
   props: {
     config: {
+      type: Object,
+      required: true,
+    },
+
+    styling: {
       type: Object,
       required: true,
     },
