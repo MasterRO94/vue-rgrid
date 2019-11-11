@@ -604,6 +604,10 @@ export default {
 
     prepareHeadersFromRow(row) {
       this.data.columns = Columns.makeFromRow(row);
+
+      if (this.data.cardColumns.isEmpty()) {
+        this.data.cardColumns = this.data.columns;
+      }
     },
 
     async fetchData() {
