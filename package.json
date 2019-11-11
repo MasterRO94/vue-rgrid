@@ -1,6 +1,6 @@
 {
   "name": "vue-rgrid",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "author": {
     "name": "Ihoshyn Roman",
     "email": "igoshin18@gmail.com"
@@ -17,8 +17,7 @@
   "main": "dist/rgrid.common.js",
   "module": "dist/rgrid.common.js",
   "files": [
-    "src/*.js",
-    "src/*.vue",
+    "src",
     "dist/*.js",
     "dist/*.js.map"
   ],
