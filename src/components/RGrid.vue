@@ -360,6 +360,7 @@
         v-if="!initializing && config.pagination.enabled && numberOfPages > 1"
         v-model="pagination.currentPage"
         :config="config.pagination"
+        :styling="config.styling.pagination"
         :number-of-pages="numberOfPages"
         @input="handlePagination"
       />

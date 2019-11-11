@@ -25,6 +25,7 @@
 
 <script>
 import Paginate from 'vuejs-paginate';
+import config from '../config';
 
 export default {
   name: 'VPagination',
@@ -37,6 +38,12 @@ export default {
     config: {
       type: Object,
       required: true,
+    },
+
+    styling: {
+      type: Object,
+      required: false,
+      default: () => config.styling.pagination,
     },
 
     value: {
