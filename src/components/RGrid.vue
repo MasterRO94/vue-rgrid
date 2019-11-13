@@ -27,6 +27,18 @@
         </slot>
       </div>
 
+      <r-pagination
+        v-if="!initializing
+          && config.pagination.enabled
+          && numberOfPages > 1
+          && (config.pagination.position === 'top' || config.pagination.position === 'top-bottom')"
+        v-model="pagination.currentPage"
+        :config="config.pagination"
+        :styling="config.styling.pagination"
+        :number-of-pages="numberOfPages"
+        @input="handlePagination"
+      />
+
       <div :class="config.styling.tableWrapperClass">
         <slot
           v-if="fetchingData"
@@ -371,7 +383,10 @@
       </div>
 
       <r-pagination
-        v-if="!initializing && config.pagination.enabled && numberOfPages > 1"
+        v-if="!initializing
+          && config.pagination.enabled
+          && numberOfPages > 1
+          && (config.pagination.position === 'bottom' || config.pagination.position === 'top-bottom')"
         v-model="pagination.currentPage"
         :config="config.pagination"
         :styling="config.styling.pagination"
