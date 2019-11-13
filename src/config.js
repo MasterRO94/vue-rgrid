@@ -1,7 +1,7 @@
 export default {
   pagination: {
     enabled: true,
-    position: 'top', // one of ['top', 'bottom', 'top-bottom'],
+    position: 'bottom', // one of ['top', 'bottom', 'top-bottom'],
     perPage: 10,
     pageRange: 3,
     prevText: 'Previous',
