@@ -177,9 +177,16 @@
                     :field="field"
                     :name="`cell:${field}`"
                   >
-                    <span v-if="row.columns[field]">
-                      {{ row.columns[field].value }}
-                    </span>
+                    <template v-if="row.columns[field]">
+                      <span v-if="!column.html">
+                        {{ row.columns[field].value }}
+                      </span>
+                      <!-- eslint-disable vue/no-v-html -->
+                      <span
+                        v-else
+                        v-html="row.columns[field].value"
+                      />
+                    </template>
                   </slot>
                 </td>
               </tr>
@@ -309,9 +316,16 @@
                       :name="`cell:${field}`"
                       :field="field"
                     >
-                      <span v-if="row.columns[field]">
-                        {{ row.columns[field].value }}
-                      </span>
+                      <template v-if="row.columns[field]">
+                        <span v-if="!column.html">
+                          {{ row.columns[field].value }}
+                        </span>
+                        <!-- eslint-disable vue/no-v-html -->
+                        <span
+                          v-else
+                          v-html="row.columns[field].value"
+                        />
+                      </template>
                     </slot>
                   </div>
                 </div>

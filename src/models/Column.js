@@ -4,6 +4,7 @@ export default class Column {
     this.label = data.label || '';
     this.sortable = data.sortable || false;
     this.filterable = data.filterable || false;
+    this.html = data.html || false;
   }
 
   static make(field, data = {}) {
