@@ -24,8 +24,8 @@ export default class Columns {
 
   prepareColumns(columns) {
     this.columns = {};
-    Object.entries(columns).forEach((data) => {
-      this.columns[data[0]] = Column.make(data[0], data[1] || {});
+    Object.entries(columns).forEach(([field, data]) => {
+      this.columns[field] = Column.make(field, data || {});
     });
   }
 
