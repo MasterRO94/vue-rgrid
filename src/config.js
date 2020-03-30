@@ -22,7 +22,11 @@ export default {
     defaultSortingColumns: {},
   },
   filtering: true,
-  selection: true,
+  selection: {
+    enabled: true,
+    resetSelectionOnReload: false,
+    canSelectRowHandler: () => true,
+  },
   idField: null,
   axios: {},
   responsive: {
@@ -55,6 +59,8 @@ export default {
     cardLabelClass: 'r-grid__card-label',
     cardValueClass: 'r-grid__card-value',
     cardValueExpandedClass: 'r-grid__card-value-expanded',
+    selectionCheckboxWrapperClass: 'r-grid__checkbox',
+    selectionCheckMarkClass: 'r-grid__checkmark',
     pagination: {
       infoClassTop: 'r-grid__pagination-info r-grid__pagination-info--top',
       infoClassBottom: 'r-grid__pagination-info r-grid__pagination-info--bottom',

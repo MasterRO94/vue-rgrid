@@ -1,5 +1,6 @@
 <template>
   <div
+    v-cloak
     v-resize:debounce="handleResize"
     :class="config.styling.containerClass"
   >
@@ -55,18 +56,18 @@
           <thead :class="config.styling.tableHeadClass">
             <tr :class="config.styling.tableRowClass">
               <th
-                v-if="config.selection"
+                v-if="config.selection && config.selection.enabled"
                 v-show="data.rows.length"
                 :class="config.styling.tableHeadCellClass"
               >
-                <div class="r-grid__checkbox">
+                <div :class="config.styling.selectionCheckboxWrapperClass">
                   <input
                     type="checkbox"
                     title="Select all"
                     :checked="isAllRowsOnPageSelected"
                     @input="toggleAllRowsSelection"
                   >
-                  <span class="r-grid__checkmark" />
+                  <span :class="config.styling.selectionCheckMarkClass" />
                 </div>
               </th>
               <th
@@ -157,17 +158,18 @@
                 @dblclick="fireRowDblClickEvent(row)"
               >
                 <td
-                  v-if="config.selection"
+                  v-if="config.selection && config.selection.enabled"
                   :class="config.styling.tableBodyCellClass"
                 >
-                  <div class="r-grid__checkbox">
+                  <div :class="config.styling.selectionCheckboxWrapperClass">
                     <input
                       type="checkbox"
                       :value="row"
                       :checked="selectionHasRow(row)"
+                      :disabled="!row.selectable"
                       @input="toggleRowSelection(row)"
                     >
-                    <span class="r-grid__checkmark" />
+                    <span :class="config.styling.selectionCheckMarkClass" />
                   </div>
                 </td>
                 <td
@@ -235,13 +237,13 @@
           :class="config.styling.cardWrapperClass"
         >
           <div
-            v-if="config.selection"
+            v-if="config.selection && config.selection.enabled"
             :class="config.styling.cardControlsClass"
           >
             <label :for="`select-all-rows-${_uid}`">
               Select All
             </label>
-            <div class="r-grid__checkbox">
+            <div :class="config.styling.selectionCheckboxWrapperClass">
               <input
                 :id="`select-all-rows-${_uid}`"
                 type="checkbox"
@@ -249,7 +251,7 @@
                 :checked="isAllRowsOnPageSelected"
                 @input="toggleAllRowsSelection"
               >
-              <span class="r-grid__checkmark" />
+              <span :class="config.styling.selectionCheckMarkClass" />
             </div>
           </div>
 
@@ -276,17 +278,18 @@
                   name="card-header"
                 >
                   <div
-                    v-if="config.selection"
+                    v-if="config.selection && config.selection.enabled"
                     :class="config.styling.cardControlsClass"
                   >
-                    <div class="r-grid__checkbox">
+                    <div :class="config.styling.selectionCheckboxWrapperClass">
                       <input
                         type="checkbox"
                         :value="row"
                         :checked="selectionHasRow(row)"
+                        :disabled="!row.selectable"
                         @input="toggleRowSelection(row)"
                       >
-                      <span class="r-grid__checkmark" />
+                      <span :class="config.styling.selectionCheckMarkClass" />
                     </div>
                   </div>
                 </slot>
@@ -483,7 +486,7 @@ export default {
       }
 
       // eslint-disable-next-line
-      for (const row of this.data.rows) {
+      for (const row of this.data.rows.filter(r => r.selectable)) {
         if (!this.data.selectedRows.filter(r => r.id === row.id).length) {
           return false;
         }
@@ -509,7 +512,7 @@ export default {
 
       const count = this.data.columns.count();
 
-      return this.config.selection ? count + 1 : count;
+      return this.config.selection && config.selection.enabled ? count + 1 : count;
     },
 
     cardsView() {
@@ -544,6 +547,14 @@ export default {
     this.loading = false;
   },
 
+  mounted() {
+    this.handleResize();
+  },
+
+  updated() {
+    this.handleResize();
+  },
+
   methods: {
     async init(loadRows = true) {
       this.initializing = true;
@@ -557,6 +568,10 @@ export default {
 
       if (this.data.columns.isEmpty() && this.data.rows.length) {
         this.prepareHeadersFromRow(this.data.rows[0]);
+      }
+
+      if (this.config.selection.resetSelectionOnReload) {
+        this.data.selectedRows = [];
       }
 
       this.initializing = false;
@@ -578,6 +593,10 @@ export default {
             ...config.sorting,
             ...this.options.sorting || {},
           },
+          selection: {
+            ...config.selection,
+            ...this.options.selection || {},
+          },
           styling: {
             ...config.styling,
             ...this.options.styling || {},
@@ -592,8 +611,8 @@ export default {
       this.config = { ...config, ...customConfig };
 
       if (this.config.sorting.defaultSortingColumns && Object.keys(this.config.sorting.defaultSortingColumns).length) {
-        Object.entries(this.config.sorting.defaultSortingColumns).forEach((data) => {
-          this.$set(this.sorting, data[0], data[1]);
+        Object.entries(this.config.sorting.defaultSortingColumns).forEach(([field, value]) => {
+          this.$set(this.sorting, field, value);
         });
       }
 
@@ -649,6 +668,7 @@ export default {
 
         this.data.rows = Object.values(response.data.data).map(row => Row.make(row, {
           idField: this.config.idField,
+          canSelectRowHandler: this.config.canSelectRowHandler,
         }));
 
         if (this.config.pagination.enabled) {
@@ -727,7 +747,7 @@ export default {
 
     toggleAllRowsSelection() {
       if (!this.isAllRowsOnPageSelected) {
-        this.data.rows.forEach((row) => {
+        this.data.rows.filter(row => row.selectable).forEach((row) => {
           if (!this.selectionHasRow(row)) {
             this.data.selectedRows.push(row);
           }

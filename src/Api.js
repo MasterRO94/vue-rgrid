@@ -9,6 +9,22 @@ export default class Api {
     return new this(grid);
   }
 
+  getRows() {
+    return this.grid.data.rows;
+  }
+
+  getSelectedRows() {
+    return this.grid.data.selectedRows;
+  }
+
+  getColumns() {
+    return this.grid.data.columns;
+  }
+
+  getCardColumns() {
+    return this.grid.data.cardColumns;
+  }
+
   addColumn(field, column, redraw = true) {
     this.grid.data.columns.add(field, column);
 

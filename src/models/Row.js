@@ -4,8 +4,12 @@ import Cell from './Cell';
 export default class Row {
   constructor(columns = [], config = {}) {
     this.config = config;
+    this.rawColumns = columns;
     this.columns = Row.prepareColumns(columns);
     this.defineId();
+    this.selectable = typeof this.config.canSelectRowHandler === 'function'
+      ? this.config.canSelectRowHandler(this)
+      : false;
   }
 
   static make(columns = [], config = {}) {
@@ -23,8 +27,8 @@ export default class Row {
   static prepareColumns(columns = []) {
     const cells = {};
 
-    Object.entries(columns).forEach((column) => {
-      cells[column[0]] = Cell.make(column[0], column[1]);
+    Object.entries(columns).forEach(([field, value]) => {
+      cells[field] = Cell.make(field, value);
     });
 
     return cells;
