@@ -668,7 +668,7 @@ export default {
 
         this.data.rows = Object.values(response.data.data).map(row => Row.make(row, {
           idField: this.config.idField,
-          canSelectRowHandler: this.config.canSelectRowHandler,
+          canSelectRowHandler: this.config.selection.canSelectRowHandler,
         }));
 
         if (this.config.pagination.enabled) {

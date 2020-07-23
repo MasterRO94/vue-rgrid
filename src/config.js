@@ -27,7 +27,7 @@ export default {
     resetSelectionOnReload: false,
     canSelectRowHandler: () => true,
   },
-  idField: null,
+  idField: 'id',
   axios: {},
   responsive: {
     enabled: true,
