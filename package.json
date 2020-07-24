@@ -1,14 +1,14 @@
 {
   "name": "vue-rgrid",
-  "version": "0.1.31",
+  "version": "0.1.32",
   "author": {
     "name": "Ihoshyn Roman",
     "email": "igoshin18@gmail.com"
   },
   "private": false,
   "scripts": {
-    "serve": "vue-cli-service serve --target lib --name rgrid src/main.js",
-    "build": "vue-cli-service build --target lib --name rgrid src/main.js",
+    "serve": "vue-cli-service serve --target lib --name vue-rgrid src/main.js",
+    "build": "vue-cli-service build --target lib --name vue-rgrid src/main.js",
     "lint": "vue-cli-service lint"
   },
   "repository": {
@@ -23,15 +23,15 @@
   ],
   "dependencies": {
     "axios": "^0.19.2",
-    "core-js": "^3.6.4",
+    "core-js": "^3.6.5",
     "object-hash": "^2.0.3",
     "vue-resize-directive": "^1.2.0",
     "vuejs-paginate": "^2.1.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.2.3",
-    "@vue/cli-plugin-eslint": "^4.2.3",
-    "@vue/cli-service": "^4.2.3",
+    "@vue/cli-plugin-babel": "^4.4.6",
+    "@vue/cli-plugin-eslint": "^4.4.6",
+    "@vue/cli-service": "^4.4.6",
     "babel": "^6.23.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
@@ -39,11 +39,11 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-loader": "^2.2.1",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11"
