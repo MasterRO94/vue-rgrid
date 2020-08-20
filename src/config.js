@@ -34,6 +34,7 @@ export default {
     breakpoint: 1023,
   },
   additionalRowClassHandler: () => '',
+  prepareRowHandler: row => row,
   styling: {
     containerClass: 'r-grid',
     contentClass: 'r-grid__content',

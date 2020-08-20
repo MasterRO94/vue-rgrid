@@ -631,7 +631,9 @@ export default {
       if (this.fetchDataUrl) {
         await this.fetchData();
       } else {
-        this.data.rows = Object.values(this.rows).map(row => Row.make(row));
+        this.data.rows = Object.values(this.rows)
+          .map(this.config.prepareRowHandler)
+          .map(row => Row.make(row));
       }
     },
 
@@ -666,10 +668,12 @@ export default {
 
         const response = await this.client().get(this.fetchDataUrl, { params });
 
-        this.data.rows = Object.values(response.data.data).map(row => Row.make(row, {
-          idField: this.config.idField,
-          canSelectRowHandler: this.config.selection.canSelectRowHandler,
-        }));
+        this.data.rows = Object.values(response.data.data)
+          .map(this.config.prepareRowHandler)
+          .map(row => Row.make(row, {
+            idField: this.config.idField,
+            canSelectRowHandler: this.config.selection.canSelectRowHandler,
+          }));
 
         if (this.config.pagination.enabled) {
           this.pagination = { ...this.pagination, ...response.data.pagination };
